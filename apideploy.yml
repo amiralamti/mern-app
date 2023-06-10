@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mern-api
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mern-api
+    spec:
+      containers:
+        - name: mern-api
+          image: rahmafeidi/api
+          ports:
+            - containerPort: 3080
+              name: nodejs-port
+  selector:
+    matchLabels:
+      app: mern-api

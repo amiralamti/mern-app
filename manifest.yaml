@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+  labels:
+    app: webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - name: webapp
+        image: rahmafeidi/webapp
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp
+  labels:
+    app: webapp
+spec:
+  type: NodePort
+  ports:
+  - port: 8000
+    protocol: TCP
+    targetPort: 3000
+    nodePort: 30005   
+  selector:
+    app: webapp
