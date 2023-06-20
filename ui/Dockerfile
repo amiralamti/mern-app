@@ -5,7 +5,7 @@ FROM node:14-slim
 WORKDIR /usr/app
 
 # Copying only package.json
-COPY ui/package*.json ./
+COPY package*.json ./
 
 # Install Dependencies
 RUN npm install
