@@ -4,7 +4,7 @@ pipeline {
     stage('Build Docker Image 1') {
       steps {
         script {
-          def dockerImage = docker.build("amiralamti/front:ui", "-f ./ui/Dockerfile .")
+          def dockerImage = docker.build("amiralamti/front:ui", "-f ./Dockerfile .")
         }
       }
     }
@@ -19,7 +19,7 @@ pipeline {
     stage('Build Docker Image 2') {
       steps {
         script {
-          def dockerImage = docker.build("amiralamti/back:api", "-f ./api/Dockerfile .")
+          def dockerImage = docker.build("amiralamti/back:api", "-f ./Dockerfile .")
         }
       }
     }
