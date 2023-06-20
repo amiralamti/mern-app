@@ -11,3 +11,18 @@ spec:
       ports:
         - containerPort: 27017
           name: mongodb-port
+          
+---       
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-db
+spec:
+  ports:
+    - port: 27017
+      protocol: TCP
+  selector:
+    app: mongo-db
+  type: ClusterIP
+  
+  

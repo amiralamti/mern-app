@@ -17,3 +17,4 @@ EXPOSE 3080
 
 # Run the API on Nodemon
 CMD ["npm", "run", "dev"]
+

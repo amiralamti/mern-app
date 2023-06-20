@@ -11,10 +11,27 @@ spec:
     spec:
       containers:
         - name: mern-ui
-          image: rahmafeidi/ui
+          image: amiralamti/front:ui
+          command: ["npm", "start"]
           ports:
             - containerPort: 3000
               name: http-port
   selector:
     matchLabels:
       app: mern-ui
+ 
+---   
+apiVersion: v1
+kind: Service
+metadata:
+  name: mern-ui
+spec:
+  ports:
+    - port: 3000
+      protocol: TCP
+      targetPort: http-port
+  selector:
+    app: mern-ui
+  type: LoadBalancer
+  
+  
