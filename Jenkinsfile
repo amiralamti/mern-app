@@ -1,31 +1,34 @@
 pipeline {
   agent any
- 
-  environment {
-    DOCKERHUB_CREDENTIALS = credentials('auth_dockerhub')
-  }
   stages {
-    stage('Build') {
+    stage('Build Docker Image 1') {
       steps {
-        sh 'docker build -t amiralamti/api api/'
         sh 'docker build -t amiralamti/ui ui/'
+        }
       }
     }
-    stage('Login') {
+    stage('Push Docker Image 1 to Docker Hub') {
       steps {
-        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        withCredentials([usernamePassword(credentialsId: 'auth_dockerhub', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+          sh "docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD"
+          sh "docker push amiralamti/ui"
+        }
       }
     }
-    stage('Push') {
+    stage('Build Docker Image 2') {
       steps {
-        sh 'docker push amiralamti/api'
-        sh 'docker push amiralamti/ui'
+        script {
+          sh 'docker build -t amiralamti/api api/'
+        }
       }
     }
-  }
-  post {
-    always {
-      sh 'docker logout'
+    stage('Push Docker Image 2 to Docker Hub') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'auth_dockerhub', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+          sh "docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD"
+          sh "docker push amiralamti/api"
+        }
+      }
     }
   }
 }

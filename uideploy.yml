@@ -11,8 +11,7 @@ spec:
     spec:
       containers:
         - name: mern-ui
-          image: amiralamti/front:ui
-          command: ["npm", "start"]
+          image: amiralamti/ui
           ports:
             - containerPort: 3000
               name: http-port

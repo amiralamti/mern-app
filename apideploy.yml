@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: mern-api
-          image: amiralamti/back:api
+          image: amiralamti/api
           ports:
             - containerPort: 3080
               name: nodejs-port
