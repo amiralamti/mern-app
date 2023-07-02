@@ -12,6 +12,7 @@ spec:
       containers:
         - name: mern-api
           image: amiralamti/api
+          imagePullPolicy: Always
           ports:
             - containerPort: 3080
               name: nodejs-port
